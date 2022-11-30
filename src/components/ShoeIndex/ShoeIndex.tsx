@@ -13,43 +13,39 @@ interface ShoeIndexProps {
 export const ShoeIndex = ({ sortId, setSortId }: ShoeIndexProps) => {
   return (
     <>
-    <Header>
-      <LeftColumn>
-        <Breadcrumbs>
-          <Breadcrumbs.Crumb href="/">Home</Breadcrumbs.Crumb>
-          <Breadcrumbs.Crumb href="/sale">Sale</Breadcrumbs.Crumb>
-          <Breadcrumbs.Crumb href="/sale/shoes">Shoes</Breadcrumbs.Crumb>
-        </Breadcrumbs>
-      </LeftColumn>
-      <Main>
-        <Header>
-          <Title>Running</Title>
-          <Select
-            label="Sort"
-            value={sortId}
-            onChange={(ev) => setSortId(ev.target.value)}
-          >
-            <option value="newest">Newest Releases</option>
-            <option value="price">Price</option>
-          </Select>
-        </Header>
-      </Main>
-    </Header>
-    <Spacer size={32} />
-    <Wrapper>
-      <LeftColumn>
-        <ShoeSidebar />
-      </LeftColumn>
-      <Main>
-        <ShoeGrid />
-      </Main>
-    </Wrapper>
+      <Wrapper>
+        <LeftColumn>
+          <Breadcrumbs>
+            <Breadcrumbs.Crumb href="/">Home</Breadcrumbs.Crumb>
+            <Breadcrumbs.Crumb href="/sale">Sale</Breadcrumbs.Crumb>
+            <Breadcrumbs.Crumb href="/sale/shoes">Shoes</Breadcrumbs.Crumb>
+          </Breadcrumbs>
+          <Spacer size={32} />
+          <ShoeSidebar />
+        </LeftColumn>
+        <Main>
+          <Header>
+            <Title>Running</Title>
+            <Select
+              label="Sort"
+              value={sortId}
+              onChange={(ev) => setSortId(ev.target.value)}
+            >
+              <option value="newest">Newest Releases</option>
+              <option value="price">Price</option>
+            </Select>
+          </Header>
+          <Spacer size={32} />
+          <ShoeGrid />
+        </Main>
+      </Wrapper>
     </>
   );
 };
 
 const Wrapper = styled.div`
   display: flex;
+  align-items: baseline;
 `;
 
 const Header = styled.header`

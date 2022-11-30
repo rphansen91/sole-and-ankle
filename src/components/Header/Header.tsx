@@ -53,7 +53,9 @@ const Inner = styled.div`
   align-items: baseline;
 `;
 
-const Nav = styled.nav``;
+const Nav = styled.nav`
+  margin: 0 48px;
+`;
 
 const NavList = styled.ul`
   display: flex;
