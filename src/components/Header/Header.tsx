@@ -7,9 +7,9 @@ export const Header = () => {
   return (
     <Wrapper>
       <Inner>
-        <LogoPosition>
+        <FlexGrow>
           <Logo />
-        </LogoPosition>
+        </FlexGrow>
         <Nav>
           <NavList>
             <NavLink href="/sale">Sale</NavLink>
@@ -20,6 +20,7 @@ export const Header = () => {
             <NavLink href="/collections">Collections</NavLink>
           </NavList>
         </Nav>
+        <FlexGrow />
       </Inner>
     </Wrapper>
   );
@@ -33,6 +34,10 @@ const NavLink = ({ href, children }: PropsWithChildren<{ href?: string }>) => {
   );
 };
 
+const FlexGrow = styled.div`
+  flex: 1;
+`;
+
 const Wrapper = styled.header`
   display: flex;
   align-items: center;
@@ -42,16 +47,10 @@ const Wrapper = styled.header`
 `;
 
 const Inner = styled.div`
-  position: relative;
   flex: 1;
   display: flex;
   justify-content: center;
   align-items: baseline;
-`;
-
-const LogoPosition = styled.div`
-  position: absolute;
-  left: 0;
 `;
 
 const Nav = styled.nav``;

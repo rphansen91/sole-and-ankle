@@ -2,6 +2,7 @@
   "name": "sole-and-ankle",
   "version": "0.1.0",
   "private": true,
+  "homepage": "https://rphansen91.github.io/sole-and-ankle",
   "dependencies": {
     "date-fns": "2.16.1",
     "react": "17.0.1",
@@ -11,6 +12,8 @@
     "styled-components": "5.2.1"
   },
   "scripts": {
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
@@ -38,6 +41,7 @@
     "@types/react": "^18.0.25",
     "@types/react-dom": "^18.0.9",
     "@types/styled-components": "^5.1.26",
+    "gh-pages": "^4.0.0",
     "typescript": "^4.9.3"
   }
 }
