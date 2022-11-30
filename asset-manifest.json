@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.js": "/sole-and-ankle/static/js/main.b50c92b5.chunk.js",
-    "main.js.map": "/sole-and-ankle/static/js/main.b50c92b5.chunk.js.map",
+    "main.js": "/sole-and-ankle/static/js/main.f2cc1a39.chunk.js",
+    "main.js.map": "/sole-and-ankle/static/js/main.f2cc1a39.chunk.js.map",
     "runtime-main.js": "/sole-and-ankle/static/js/runtime-main.a3e7637f.js",
     "runtime-main.js.map": "/sole-and-ankle/static/js/runtime-main.a3e7637f.js.map",
     "static/js/2.b4a7a49f.chunk.js": "/sole-and-ankle/static/js/2.b4a7a49f.chunk.js",
@@ -12,6 +12,6 @@
   "entrypoints": [
     "static/js/runtime-main.a3e7637f.js",
     "static/js/2.b4a7a49f.chunk.js",
-    "static/js/main.b50c92b5.chunk.js"
+    "static/js/main.f2cc1a39.chunk.js"
   ]
 }
