@@ -21,7 +21,7 @@ const Wrapper = styled.div`
   background: var(--gray-900);
   color: var(--white);
   padding: 8px 32px;
-  gap: 32px;
+  gap: var(--gap);
 `;
 
 const Message = styled.p`

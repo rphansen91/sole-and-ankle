@@ -5,7 +5,7 @@ import { ShoeCard } from '../ShoeCard';
 export const ShoeGrid = () => {
   return (
     <Grid>
-      {SHOES.map((shoe => <ShoeCard shoe={shoe} key={shoe.slug} />))}
+      {SHOES.map((shoe => <ShoeCard {...shoe} key={shoe.slug} />))}
     </Grid>
   );
 };

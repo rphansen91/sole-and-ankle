@@ -15,8 +15,7 @@ export const GlobalStyles = createGlobalStyle`
   --font-weight-normal: ${WEIGHTS.normal};
   --font-weight-medium: ${WEIGHTS.medium};
   --font-weight-bold: ${WEIGHTS.bold};
-  --spacing: 8px;
-  --spacing-large: 16px;
+  --gap: 32px;
 }
 
 /* http://meyerweb.com/eric/tools/css/reset/

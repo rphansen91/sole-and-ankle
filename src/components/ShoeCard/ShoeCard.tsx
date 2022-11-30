@@ -1,33 +1,90 @@
 import styled from "styled-components";
 import { formatPrice, pluralize, isNewShoe } from "../../utils";
-import { IShoe } from "../../data";
 import { Spacer } from "../Spacer";
 
-export const ShoeCard = ({ shoe }: { shoe: IShoe }) => {
+interface ShoeCardProps {
+  slug: string;
+  name: string;
+  imageSrc: string;
+  price: number;
+  salePrice?: number | null;
+  releaseDate: number;
+  numOfColors: number;
+}
+
+export const ShoeCard = ({
+  name,
+  slug,
+  imageSrc,
+  price,
+  numOfColors,
+  salePrice,
+  releaseDate,
+}: ShoeCardProps) => {
   const variant =
-    typeof shoe.salePrice === "number"
+    typeof salePrice === "number"
       ? "on-sale"
-      : isNewShoe(shoe.releaseDate)
+      : isNewShoe(releaseDate)
       ? "new-release"
       : "default";
 
+  const StyledShoeTag = ShoeTags[variant];
+
   return (
-    <Link href={`/shoe/${shoe.slug}`}>
+    <Link href={`/shoe/${slug}`}>
       <Card>
         <ImageWrapper>
-          <img src={shoe.imageSrc} alt={shoe.name}></img>
+          <img src={imageSrc} alt={name}></img>
         </ImageWrapper>
+        <StyledShoeTag />
         <Spacer size={12} />
         <Row>
-          <Name>{shoe.name}</Name>
-          <Price>{formatPrice(shoe.price)}</Price>
+          <Name>{name}</Name>
+          <Price variant={variant}>{formatPrice(price)}</Price>
         </Row>
         <Row>
-          <ColorInfo>{pluralize("Color", shoe.numOfColors)}</ColorInfo>
+          <ColorInfo>{pluralize("Color", numOfColors)}</ColorInfo>
+          <SalePrice variant={variant}>{formatPrice(salePrice)}</SalePrice>
         </Row>
       </Card>
     </Link>
   );
+};
+
+const ShoeTag = styled.div`
+  position: absolute;
+  top: 12px;
+  right: -4px;
+  padding: 8px;
+  border-radius: 2px;
+  line-height: 0;
+  
+  &:after {
+    color: var(--white);
+    font-weight: 700;
+    font-size: ${14 / 16}rem;
+    line-height: ${16 / 16}rem;
+  }
+`;
+
+const ShoeTagOnSale = styled(ShoeTag)`
+  background-color: var(--primary);
+  &:after {
+    content: "Sale";
+  }
+`;
+
+const ShoeTagNewRelease = styled(ShoeTag)`
+  background-color: var(--secondary);
+  &:after {
+    content: "Just Released!";
+  }
+`;
+
+const ShoeTags = {
+  "on-sale": ShoeTagOnSale,
+  "new-release": ShoeTagNewRelease,
+  default: ShoeTag,
 };
 
 const Link = styled.a`
@@ -39,7 +96,9 @@ const Link = styled.a`
   border-radius: var(--radius);
 `;
 
-const Card = styled.article``;
+const Card = styled.article`
+  position: relative;
+`;
 
 const Row = styled.div`
   display: flex;
@@ -61,13 +120,22 @@ const Name = styled.h3`
   color: var(--gray-900);
 `;
 
-const Price = styled.span``;
+const Price = styled.span<{ variant?: string }>`
+  ${isOnSale(`text-decoration: line-through`)};
+`;
 
 const ColorInfo = styled.p`
   color: var(--gray-700);
 `;
 
-const SalePrice = styled.span`
+const SalePrice = styled.span<{ variant?: string }>`
+  display: none;
+  ${isOnSale(`display: initial`)};
   font-weight: var(--font-weight-medium);
   color: var(--primary);
 `;
+
+function isOnSale(style: string) {
+  return (props: { variant?: string }) =>
+    props.variant === "on-sale" ? style : "";
+}

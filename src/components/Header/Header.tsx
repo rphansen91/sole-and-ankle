@@ -12,7 +12,7 @@ export const Header = () => {
         </FlexGrow>
         <Nav>
           <NavList>
-            <NavLink href="/sale">Sale</NavLink>
+            <NavLink href="/sale" active>Sale</NavLink>
             <NavLink href="/new-releases">New Releases</NavLink>
             <NavLink href="/men">Men</NavLink>
             <NavLink href="/women">Women</NavLink>
@@ -26,9 +26,9 @@ export const Header = () => {
   );
 };
 
-const NavLink = ({ href, children }: PropsWithChildren<{ href?: string }>) => {
+const NavLink = ({ href, children, active }: PropsWithChildren<{ href?: string; active?: boolean }>) => {
   return (
-    <NavListItem>
+    <NavListItem active={active}>
       <a href={href}>{children}</a>
     </NavListItem>
   );
@@ -62,16 +62,17 @@ const NavList = styled.ul`
   gap: 48px;
 `;
 
-const NavListItem = styled.li`
+const NavListItem = styled.li<{ active?: boolean }>`
   font-weight: var(--font-weight-medium);
   font-size: ${18 / 16}rem;
   line-height: ${21 / 16}rem;
   text-transform: uppercase;
-  color: var(--gray-900);
+  color: ${props => props.active ? 'var(--secondary)' : 'var(--gray-900)'};
 
   a {
     text-decoration: none;
     color: inherit;
+    opacity: 0.8;
 
     &:hover {
       text-decoration: revert;

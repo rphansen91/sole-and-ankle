@@ -46,6 +46,7 @@ export const ShoeIndex = ({ sortId, setSortId }: ShoeIndexProps) => {
 const Wrapper = styled.div`
   display: flex;
   align-items: baseline;
+  gap: var(--gap);
 `;
 
 const Header = styled.header`
