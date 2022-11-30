@@ -1,3 +1,4 @@
+import { CSSProperties } from "react";
 import styled from "styled-components";
 import { formatPrice, pluralize, isNewShoe } from "../../utils";
 import { Spacer } from "../Spacer";
@@ -28,23 +29,25 @@ export const ShoeCard = ({
       ? "new-release"
       : "default";
 
-  const StyledShoeTag = ShoeTags[variant];
-
   return (
     <Link href={`/shoe/${slug}`}>
       <Card>
         <ImageWrapper>
           <img src={imageSrc} alt={name}></img>
         </ImageWrapper>
-        <StyledShoeTag />
+        {variant === 'on-sale' ? <ShoeTagOnSale>Sale</ShoeTagOnSale> : null}
+        {variant === 'new-release' ? <ShoeTagNewRelease>Just Released!</ShoeTagNewRelease> : null}
         <Spacer size={12} />
         <Row>
           <Name>{name}</Name>
-          <Price variant={variant}>{formatPrice(price)}</Price>
+          <Price style={{ 
+            '--color': variant === 'on-sale' ? 'var(--gray-700)' : '',
+            '--text-decoration': variant === 'on-sale' ? 'line-through' : '',
+          } as CSSProperties}>{formatPrice(price)}</Price>
         </Row>
         <Row>
           <ColorInfo>{pluralize("Color", numOfColors)}</ColorInfo>
-          <SalePrice variant={variant}>{formatPrice(salePrice)}</SalePrice>
+          {variant === 'on-sale' ? <SalePrice>{formatPrice(salePrice)}</SalePrice> : null}
         </Row>
       </Card>
     </Link>
@@ -55,37 +58,21 @@ const ShoeTag = styled.div`
   position: absolute;
   top: 12px;
   right: -4px;
-  padding: 8px;
+  padding: 0 8px;
   border-radius: 2px;
-  line-height: 0;
-  
-  &:after {
-    color: var(--white);
-    font-weight: 700;
-    font-size: ${14 / 16}rem;
-    line-height: ${16 / 16}rem;
-  }
+  font-weight: var(--font-weight-bold);
+  color: var(--white);
+  font-size: ${14 / 16}rem;
+  line-height: 32px;
 `;
 
 const ShoeTagOnSale = styled(ShoeTag)`
   background-color: var(--primary);
-  &:after {
-    content: "Sale";
-  }
 `;
 
 const ShoeTagNewRelease = styled(ShoeTag)`
   background-color: var(--secondary);
-  &:after {
-    content: "Just Released!";
-  }
 `;
-
-const ShoeTags = {
-  "on-sale": ShoeTagOnSale,
-  "new-release": ShoeTagNewRelease,
-  default: ShoeTag,
-};
 
 const Link = styled.a`
   --radius: 16px 16px 4px 4px;
@@ -120,22 +107,17 @@ const Name = styled.h3`
   color: var(--gray-900);
 `;
 
-const Price = styled.span<{ variant?: string }>`
-  ${isOnSale(`text-decoration: line-through`)};
+const Price = styled.span`
+  text-decoration: var(--text-decoration);
+  color: var(--color);
 `;
 
 const ColorInfo = styled.p`
   color: var(--gray-700);
 `;
 
-const SalePrice = styled.span<{ variant?: string }>`
-  display: none;
-  ${isOnSale(`display: initial`)};
+const SalePrice = styled.span`
   font-weight: var(--font-weight-medium);
   color: var(--primary);
 `;
 
-function isOnSale(style: string) {
-  return (props: { variant?: string }) =>
-    props.variant === "on-sale" ? style : "";
-}
